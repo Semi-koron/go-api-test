@@ -1,17 +1,17 @@
 
 CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
-    user_id: VARCHAR(255) NOT NULL,
-    reply_post_id: VARCHAR(255),
-    group_id: VARCHAR(255) NOT NULL,
-    content: VARCHAR(1023) NOT NULL,
+    user_id VARCHAR(255) NOT NULL,
+    reply_post_id VARCHAR(255),
+    group_id VARCHAR(255) NOT NULL,
+    content VARCHAR(1023) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-)
+);
 
 CREATE TABLE favorite (
     post_id VARCHAR(255) NOT NULL,
     user_id VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (work_id, user_id)
+    PRIMARY KEY (post_id, user_id)
 );

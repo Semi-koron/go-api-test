@@ -4,11 +4,11 @@ CREATE TABLE groups (
     name VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-)
+);
 
 CREATE TABLE belong (
     group_id VARCHAR(255) NOT NULL,
     user_id VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (group_id, user_id)
-)
+);
