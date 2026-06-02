@@ -2,27 +2,27 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 
+	"example.com/go-jwt/controllers"
+	"example.com/go-jwt/initializers"
+	"example.com/go-jwt/middleware"
 	"github.com/gin-gonic/gin"
 )
 
-
-
-func main() {
-	fmt.Println("initlalize myapp")
-  // デフォルトミドルウェア（loggerとrecovery）を含むGinルーターを作成
-  r := gin.Default()
-
-  // シンプルなGETエンドポイントを定義
-  r.GET("/ping", func(c *gin.Context) {
-    // JSONレスポンスを返す
-    c.JSON(http.StatusOK, gin.H{
-      "message": "pong",
-    })
-  })
-
-  // ポート8080でサーバーを起動（デフォルト）
-  // サーバーは0.0.0.0:8080でリッスンします（Windowsではlocalhost:8080）
-  r.Run()
+func init() {
+	initializers.LoadEnvVariables()
+	initializers.ConnectToDB()
+	initializers.SyncDatabase()
 }
+
+// APIを定義。Validateメソッドを呼び出す前にRequireAuthを呼び出して認証を行わせる
+func main() {
+	r := gin.Default()
+
+	r.POST("/signup", controllers.SignUp)
+	r.POST("/login", controllers.Login)
+	r.GET("/validate", middleware.RequireAuth, controllers.Validate)
+	r.Run()
+	fmt.Println("Hello, World!")
+}
+
